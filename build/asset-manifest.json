@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/mymoonddd/profile.git/static/css/main.f855e6bc.css",
+    "main.js": "/mymoonddd/profile.git/static/js/main.516e23bb.js",
+    "static/js/453.56f46472.chunk.js": "/mymoonddd/profile.git/static/js/453.56f46472.chunk.js",
+    "static/media/logo.svg": "/mymoonddd/profile.git/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/mymoonddd/profile.git/index.html",
+    "main.f855e6bc.css.map": "/mymoonddd/profile.git/static/css/main.f855e6bc.css.map",
+    "main.516e23bb.js.map": "/mymoonddd/profile.git/static/js/main.516e23bb.js.map",
+    "453.56f46472.chunk.js.map": "/mymoonddd/profile.git/static/js/453.56f46472.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.516e23bb.js"
+  ]
+}
