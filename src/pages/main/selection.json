@@ -1,0 +1,32 @@
+[
+    {
+        "type": 1,
+        "desc": "个人信息",
+        "on": true
+    },
+    {
+        "type": 2,
+        "desc": "待办",
+        "on": true
+    },
+    {
+        "type": 3,
+        "desc": "正则铁路图",
+        "on": true
+    },
+    {
+        "type": 5,
+        "desc": "weight loss",
+        "on": true
+    },
+    {
+        "type": 6,
+        "desc": "movie",
+        "on": true
+    },
+    {
+        "type": 7,
+        "desc": "add new",
+        "on": true
+    }
+]
