@@ -1,0 +1,10 @@
+.topbar {
+    padding: 0 2%;
+    height: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    font-size: x-small;
+    color: #3245523d;
+}

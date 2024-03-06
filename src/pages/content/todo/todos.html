@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyTodos</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+
+
+<body>
+  <h3 class="title">todos</h3>
+  <section id="todosMain">
+    <div class="tasksTitle">
+      <span class="setAll"> > </span>
+      <label><input type="text" id="taskInput" placeholder="What needs to be done?"></label>
+    </div>
+    <div class="tasksList"></div>
+    <div class="tasksTools">
+      <span class="itemsLeft"></span>'
+      <div class="showOps">
+        <label class="showAll">All <input type="radio" name="showTasks" hidden ></label>
+        <label class="showActive">Active <input type="radio" name="showTasks" hidden></label>
+        <label class="showCompleted">Completed <input type="radio" name="showTasks" hidden></label>
+      </div>
+      <label class="clearCompleted">Clear completed <input type="button" hidden></label>
+    </div>
+  </section>
+</body>
+<script>
+  var tasks
+  window.onload = e => { tasks = readFromLS(); writeToPage(); addEventsAfterLoaded() }
+
+  class Tasks {
+    constructor(data=[]) {
+      this.data = data // 数据储存格式为[content, completedStatus(bool)]
+    }
+
+    add(content) {
+      this.data.push([content, false])
+    }
+
+    changeStatus(action, id) {
+      if (action == 'complete') {
+        this.data[id][1] = true
+      }
+      if (action == 'active') {
+        this.data[id][1] = false
+      }
+      if (action == 'completeAll') {
+        this.data.forEach(it => {
+          it[1] = true
+        })
+      }
+      if (action == 'activeAll') {
+        this.data.forEach(it => {
+          it[1] = false
+        })
+      }
+    }
+
+    deleteTask(id) {
+      this.data.splice(id, 1)
+    }
+
+    clearCompleted() {
+      let id = 0
+      while (id < this.data.length) {
+          let [content, status] = this.data[id]
+        if (status) {
+          this.data.splice(id, 1)
+        } else {
+          id++
+        }
+      }
+    }
+  }
+
+  // RL
+  function readFromLS() {
+    let data = localStorage.myTodos ?? '[]'
+    return new Tasks(JSON.parse(data))
+  }
+
+  function saveToLS(data) {
+    localStorage.setItem('myTodos','')
+    localStorage.setItem('myTodos', JSON.stringify(data))
+  }
+
+  // 储存页面展示内容
+  function storePreInfo(info) {
+    localStorage.setItem('myTodosPre', info)
+  }
+  function readPreInfo() {
+    return localStorage.myTodosPre
+  }
+
+  // 画页面
+  function writeToPage() {
+    $('.tasksList').empty()
+    if (tasks.data.length) {
+      $('.setAll').css({visibility: 'visible'})
+      for (let i = 0; i < tasks.data.length; i++) {
+        let [content, status] = tasks.data[i]
+        createTaskRow(content, status, i)
+      }
+      modifyToolRow()
+      addEvents()
+      addStyle()
+    } else {
+      addStyle()
+      $('.setAll').css({visibility: 'hidden'})
+      $('.tasksTools').css({display:'none'})
+    }
+  }
+
+  // 添加任务
+  taskInput.addEventListener('keydown', e => {
+    if (e.code == 'Enter') {
+      let content = taskInput.value
+      if (content.length) {
+        taskInput.value = ''
+        tasks.add(content)
+        saveToLS(tasks.data)
+        writeToPage()
+      }
+    }
+  })
+
+  // 画任务行
+  function createTaskRow(content, completedStatus, id) {
+    let row = $('<div class="taskRow"></div>')
+    let com = $('<label class="taskComplete"><input type="checkbox" hidden><span>✓</span></label>')
+    let con = $('<span class="taskContent" style="position: relative">'+ content +'</span>')
+    let del = $('<span style="color: red; text-align: right" class="taskDelete">X</span>')
+
+    row.attr('data-id', id)
+
+    if (completedStatus) {
+      com.children().attr('checked', true).siblings().css({visibility: 'visible'})
+      con.css({ textDecoration: 'line-through', color:'lightgrey' })
+    } else {
+      com.children().attr('checked', false).siblings().css({visibility: 'hidden'})
+      con.css({ textDecoration: 'none', color:'#4D4D4D' })
+    }
+
+    row.append(com, con, del)
+    $('.tasksList').append(row)
+  }
+
+  // 画工具行
+  function modifyToolRow() {
+
+    let tasksList = tasks.data
+    let itemsLeftCount = tasksList.filter(it => !it[1]).reduce((count, item) => count+1, 0)
+    if (itemsLeftCount == 1) {
+      $('.itemsLeft').text('1 item left')
+    } else {
+      $('.itemsLeft').text(itemsLeftCount + ' items left')
+    }
+
+    // 清除已完成图标的显示与隐藏
+    if (tasksStatus().isAllActive) {
+      $('.clearCompleted').css({visibility: 'hidden'})
+    } else {
+      $('.clearCompleted').css({visibility: 'visible'})
+    }
+
+    let info = readPreInfo()
+    if (info == 'all') {
+      $('.showAll')[0].click()
+    }
+    if (info == 'active') {
+      $('.showActive')[0].click()
+    }
+    if (info == 'completed') {
+      $('.showCompleted')[0].click()
+    }
+  }
+
+  // 绑定事件
+  function addEvents() {
+    // 完成任务
+    $('.taskComplete input').click(function(e) {
+      let id = $(this).parent().parent().attr('data-id')
+      if (e.target.checked) {
+        tasks.changeStatus('complete', id)
+      } else {
+        tasks.changeStatus('active', id)
+      }
+      saveToLS(tasks.data)
+      writeToPage()
+    })
+
+    // 删除任务
+    $('.taskDelete').click(function(e) {
+      let id = $(this).parent().attr('data-id')
+      tasks.deleteTask(id)
+      saveToLS(tasks.data)
+      writeToPage()
+    })
+
+    // 双击改变内容
+    $('.taskContent').dblclick(function(e) {
+      $(this).attr('contenteditable', true).keydown(changeContent).css({outline: 'none'})
+      this.focus()
+    }).blur(function(e) {
+      $(this).attr('contenteditable', false)
+      changeContent(e)
+    }).focus(function() {
+      console.log(1)
+      $(this).css({border: '1px solid'})
+    })
+
+    function changeContent(e) {
+      if (e.code == 'Enter' || e.type == 'blur') {
+        let id = $(e.target).parent().attr('data-id')
+        if (e.target.textContent.length) {
+          tasks.data[id][0] = e.target.textContent
+        }
+        saveToLS(tasks.data)
+        writeToPage()
+      }
+    }
+  }
+
+  function tasksStatus() {
+    let res = {isAllActive: true, isAllCompleted: true}
+    for (let completedTask of $('.taskComplete input') ) {
+      if (completedTask.checked) {
+        res.isAllActive = false
+      } else {
+        res.isAllCompleted = false
+      }
+   }
+   return res
+  }
+
+  // 添加样式
+  function addStyle() {
+    $('body').css({
+      backgroundColor: '#F5F5F5'
+    })
+
+    $('.title').css({
+      color: '#EAD7D7',
+      textAlign: 'center',
+      fontSize: '70px',
+      margin: '10px',
+    })
+
+    $('#todosMain').css({
+      width:'600px',
+      margin: 'auto',
+      backgroundColor: 'white',
+      boxShadow: '1px 4px 10px lightgrey'
+    })
+
+    $('.tasksTitle').css({
+      height: '50px',
+      verticalAlign: 'middle',
+      lineHeight: '200%',
+      padding: '10px 20px',
+      border: '1px solid #E7E7E7',
+      fontSize: '22px',
+    })
+
+    $('.tasksTitle .setAll').css({
+      color: '#E7E7E7',
+      display: 'inline-block',
+      transform: 'rotate(90deg) scale(0.8,1.5)',
+      paddingLeft: '15px',
+    })
+
+    if (tasksStatus().isAllCompleted) {
+      $('.setAll').css({color: '#737373'})
+    }
+
+    $('.tasksTitle #taskInput').css({
+      color: 'black',
+      width: '90%',
+      height: '100%',
+      border: 'none',
+      outline: 'none',
+      fontSize: '22px',
+      paddingLeft: '10px',
+    })
+
+    $('.tasksList').css({
+      width: '100%',
+      maxHeight: '450px',
+      overflow: 'auto',
+    })
+
+    $('.taskRow').css({
+      verticalAlign: 'middle',
+      lineHeight: '100%',
+      height: '60px',
+      padding: '0 20px',
+      border: '1px solid #E7E7E7',
+      color: '#4D4D4D',
+    }).hover(function() {
+      $(this).children('.taskDelete').css({
+        visibility: 'visible'
+      })
+    }, function() {
+      $(this).children('.taskDelete').css({
+        visibility: 'hidden'
+      })
+    })
+
+    $('.taskRow .taskComplete').css({
+      border: '1px solid #E6F1EE',
+      display: 'inline-block',
+      width: '30px',
+      height: '30px',
+      borderRadius: '100px',
+      textAlign: 'center',
+      fontSize: '22px',
+      lineHeight: '130%',
+      color: '#5DC2AF',
+    })
+
+    $('.taskRow .taskContent').css({
+      verticalAlign: 'middle',
+      lineHeight: '300%',
+      display: 'inline-block',
+      height: '100%',
+      width: '85%',
+      margin: '0 10px',
+      paddingLeft: '10px',
+      border: '1px solid transparent'
+    })
+
+    $('.taskRow .taskDelete').css({
+      visibility: 'hidden',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      color: '#CC9A9A',
+      transform: 'scale(1.2, 1)'
+    }).hover(function() {
+      $(this).css({color: '#AF5B5E'})
+    }, function() {
+      $(this).css({color: '#CC9A9A'})
+    })
+
+    $('.tasksTools').css({
+      height: "35px",
+      padding: '0 10px',
+      border: '1px solid #E7E7E7',
+      fontSize: '14px',
+      display: 'flex',
+      gap: '15px',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      color: '#777777',
+    }).children(':first-child').css({
+      width: '100px'
+    }).siblings('.clearCompleted').hover(function() {
+      $(this).css({textDecoration: 'underline', cursor: 'pointer'})
+    }, function() {
+      $(this).css({textDecoration: 'none'})
+    })
+
+    $('.showOps').css({
+      display: 'flex',
+      gap: '10px',
+      alignItems: 'center',
+    })
+
+    $('.showOps *').css({
+      padding: '1px 4px',
+      border: '1px solid transparent',
+      borderRadius: '3px',
+      cursor: 'pointer'
+    })
+    .find(':checked').parent().css({
+      borderColor: '#EFD5D5',
+    }).parent().find('input:not(:checked)').parent().css({
+      borderColor: 'transparent'
+    })
+    $('.showOps *').hover(function() {
+      if (!$(this).children('input')[0].checked) {
+        $(this).css({borderColor: '#F7E9E9'})
+      }
+    }, function() {
+      if (!$(this).children('input')[0].checked) {
+        $(this).css({borderColor: 'transparent'})
+      }
+    })
+  }
+
+
+  // 各种事件
+  function addEventsAfterLoaded() {
+    // 展示全部
+    $('.showAll').click(e => {
+      storePreInfo('all')
+      for (let completedTask of $('.taskComplete') ) {
+        $(completedTask).parent().css({display:'block'})
+      }
+      addStyle()
+    })
+
+    // 展示进行中
+    $('.showActive').click(e => {
+      storePreInfo('active')
+      for (let completedTask of $('.taskComplete input') ) {
+        if (completedTask.checked) {
+          $(completedTask).parent().parent().css({display:'none'})
+          console.log($(completedTask).parent().parent()[0])
+        } else {
+          $(completedTask).parent().parent().css({display:'block'})
+        }
+     }
+     addStyle()
+   })
+
+   // 展示已完成
+   $('.showCompleted').click(e => {
+     storePreInfo('completed')
+     for (let completedTask of $('.taskComplete input') ) {
+        if (completedTask.checked) {
+          $(completedTask).parent().parent().css({display:'block'})
+        } else {
+          $(completedTask).parent().parent().css({display:'none'})
+        }
+     }
+     addStyle()
+   })
+
+   // 清除已完成
+   $('.clearCompleted').click(e => {
+     tasks.clearCompleted()
+     saveToLS(tasks.data)
+     writeToPage()
+   })
+
+    // 一键操作
+    $('.setAll').click(function () {
+      let status = tasksStatus()
+      if (status.isAllCompleted) {
+        tasks.changeStatus('activeAll')
+      } else {
+        tasks.changeStatus('completeAll')
+      }
+      saveToLS(tasks.data)
+      writeToPage()
+    })
+
+  }
+
+</script>
+
+</html>
+
