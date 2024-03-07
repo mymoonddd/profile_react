@@ -1,22 +1,25 @@
 import './index.css'
 import selections from './selection.json'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-export default function Options({onOptionChange}) {
+export default function Options() {
     const selBtns = selections.map((x) => {
-       return <SingleOption onOptionChange={onOptionChange} opt={x} />
+       return <SingleOption opt={x} key={x.id} />
     })
+
     return <div className="options"> 
         { selBtns } 
     </div>
 }
 
-function SingleOption({onOptionChange, opt}) {
+function SingleOption({opt}) {
+    const navigate = useNavigate()
+    const isActive = useLocation().pathname.slice(1) === opt.route
+    const activeBtn = <span className="circle" style={{opacity: +(isActive)}}></span>
+    const text = <span className="text">{opt.desc} {isActive}</span>
+    // const alert = <span className="alert">11</span>
 
-    const activeBtn = <span className="circle" style={{opacity: +(opt.on)}}></span>
-    const text = <span className="text">{opt.desc}</span>
-    const alert = <span className="alert">11</span>
-
-    return <div onClick={changeOpt} className="option" on>
+    return <div onClick={changeOpt} className="option">
         {activeBtn}
         {text}
         {/* {alert} */}
@@ -24,7 +27,7 @@ function SingleOption({onOptionChange, opt}) {
 
     function changeOpt(e) {
         e.preventDefault()
-        onOptionChange(opt.id)
+        navigate('/'+opt.route)
     }
 }
 

@@ -1,12 +1,11 @@
 .block {
     background-color:white;
-    width: 70%;
-    height: 80vh;
+    width: 1024px;
+    height: 730px;
     display: flex;
     flex-direction: row;
+    margin: 100px;
   }
-
-
 
 .block >div:last-child {
     flex-grow: 1;

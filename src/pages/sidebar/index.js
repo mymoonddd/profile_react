@@ -3,10 +3,10 @@ import logo from '../../assets/images/logo.png'
 import Options from './options'
 import Profile from './profile'
 
-export default function SideBar({onOptionChange}) {
+export default function SideBar() {
     return <div className="sidebar">
         <Title/>
-        <Options onOptionChange={onOptionChange}/>
+        <Options/>
         <Profile />
     </div>
 }

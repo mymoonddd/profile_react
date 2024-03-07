@@ -1,14 +1,17 @@
 import './App.css';
 import './defaultStyle.css'
 import Main from './pages/main'
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <div className="block">
-        <Main />
+    <BrowserRouter>
+      <div className="App">
+        <div className="block">
+          <Main />
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
