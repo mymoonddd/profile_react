@@ -1,0 +1,80 @@
+
+.con-todo {
+    /* max-width: width; */
+    min-width: 200px;
+    margin: 20px;
+    margin-top: 100px;
+    box-shadow: 2px 2px 5px lightgray;
+}
+
+.con-todo .taskinput {
+    display: flex;
+    height: 70px;
+    border-bottom: 2px solid #aaaaaa55;
+    padding: 0 10px;
+}
+
+.con-todo .taskinput >:nth-child(1) {
+    height: 100%;
+}
+
+.con-todo .taskinput >:nth-child(2) {
+   flex-grow: 1;
+}
+
+.con-todo .tasklist {
+    max-height: calc(70px*5);
+    overflow: auto;
+}
+
+.con-todo .tasklist >div {
+    height: 70px;
+    border-bottom: 2px solid #aaaaaa33;
+    display: flex;
+    padding: 0 10px;
+}
+
+.con-todo .tasklist .dashed {
+    text-decoration: dashed;
+}
+
+.con-todo .tasklist >div >:first-child {
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    margin: auto;
+}
+
+.con-todo .tasklist >div >:nth-child(2) {
+    flex-grow: 1;
+}
+
+.con-todo .tasklist >div >:nth-child(3) {
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    margin: auto;
+}
+
+.con-todo .countbar {
+    height: 70px;
+    border-top: 1px solid #aaaaaa55;
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.con-todo .countbar >* {
+   display: flex;
+   align-items: center;
+}
+
+.con-todo .countbar >:nth-child(2) >* {
+    color: rgb(124, 122, 122);
+    border: 1px solid rgba(246, 243, 207, 0);
+}
+
+.con-todo .countbar .selected {
+    border: 1px solid rgb(246, 243, 207);
+}
