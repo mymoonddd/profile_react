@@ -14,7 +14,7 @@ export default function SideBar() {
 function Title() {
     return <div className="title">
         <img src={logo} alt=""></img>
-        <span>菜单</span>
+        <span>灵感收集器</span>
     </div>
 }
 

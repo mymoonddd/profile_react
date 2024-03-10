@@ -17,3 +17,7 @@ input {
 .cursor-p {
     cursor: pointer;
 }
+
+.hidden {
+    visibility: hidden;
+}

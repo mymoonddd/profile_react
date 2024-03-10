@@ -67,7 +67,7 @@ export default function ToDo() {
 
     return (
         <div className='con-todo'>
-            <TaskInput actionSet={actionSet}/>
+            <TaskInput actionSet={actionSet} tasks={tasks}/>
             <TaskList tasks={showTasks} actionSet={actionSet}/>
             <CountBar tasks={tasks} showNum={showNum} actionSet={actionSet}/>
         </div>

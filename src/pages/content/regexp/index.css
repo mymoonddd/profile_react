@@ -1,0 +1,66 @@
+.con-regexp {
+    background-color: #6b6659;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 600px;
+    height: 600px;
+    overflow: auto;
+}
+
+.con-regexp .title {
+background-color: #adcb4f;
+height: 80px;
+padding: 0 50px;
+font-size: 3em;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+font-style: italic;
+}
+
+.con-regexp .title #info {
+margin: 20px 50px;
+height: 1.2em;
+overflow: hidden;
+vertical-align: middle;
+background-color: rgb(0, 0, 0);
+color: #adcb4f;
+padding: 0 10px;
+font-size: 10px;
+font-style: normal;
+}
+
+.con-regexp .userInput {
+margin: 0 50px;
+height: 100px;
+vertical-align: middle;
+width: 80%;
+}
+
+.con-regexp .userInput #regInput {
+width: 100%;
+height: 50%;
+background-color: #cbcbba;
+display: block;
+}
+
+.con-regexp #regInputButton, #downloadButton {
+margin-top: 10px;
+background-color: #adcb4f;
+}
+
+.con-regexp .resultPre {
+margin: 0 50px;
+background-color: #fff;
+text-align: center;
+width: 80%;
+overflow: auto;
+height: 300px;
+/* display: flex; */
+/* position: absolute; */
+position: relative;
+}
+
+svg {
+    position: relative;
+    top: 0;
+}

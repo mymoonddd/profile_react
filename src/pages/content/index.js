@@ -11,12 +11,12 @@ export default function Content() {
     return (
         <div className='content'>
             <Routes>
-                <Route path='/' element={<Profile/>}/>
-                <Route path='todo' element={<ToDo/>}/>
-                <Route path='weightloss' element={<Weightloss/>}/>
-                <Route path='paint' element={<Paint/>}/>
+                <Route path='/' element={<ToDo/>}/>
+                <Route path='/todo' element={<ToDo/>}/>
+                {/* <Route path='weightloss' element={<Weightloss/>}/> */}
+                {/* <Route path='paint' element={<Paint/>}/> */}
                 <Route path='regexp' element={<RegExpRailway/>}/>
-                <Route path='movie' element={<Drama/>}/>
+                {/* <Route path='movie' element={<Drama/>}/> */}
                 <Route path='*' element={<Error/>}/>
             </Routes>
         </div>

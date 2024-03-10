@@ -1,9 +1,9 @@
 
 .con-todo {
-    /* max-width: width; */
-    min-width: 200px;
-    margin: 20px;
-    margin-top: 100px;
+    /* min-width: 200px; */
+    background-color: white;
+    width: 600px;
+    border-radius: 10px;
     box-shadow: 2px 2px 5px lightgray;
 }
 
@@ -14,12 +14,24 @@
     padding: 0 10px;
 }
 
-.con-todo .taskinput >:nth-child(1) {
+.con-todo .taskinput .checkAll {
     height: 100%;
+    /* padding: 0px; */
+    margin-right: 10px;
+    font-size: 20px;
+    transform: rotate(180deg) scaleX(1.6) translateY(2px);
+    color: lightgray;
+}
+
+.con-todo .taskinput .allChecked {
+    color: rgb(133, 132, 132);
 }
 
 .con-todo .taskinput >:nth-child(2) {
    flex-grow: 1;
+   color: rgb(133, 132, 132);
+   /* font-weight: bolder; */
+   font-size: 16px;
 }
 
 .con-todo .tasklist {
@@ -32,28 +44,54 @@
     border-bottom: 2px solid #aaaaaa33;
     display: flex;
     padding: 0 10px;
+    gap: 10px;
 }
 
 .con-todo .tasklist .dashed {
     text-decoration: dashed;
 }
 
-.con-todo .tasklist >div >:first-child {
-    width: 20px;
-    height: 20px;
-    border: 1px solid;
+.con-todo .tasklist .checkbox {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #cccccc99;
     margin: auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: lightgreen;
 }
 
-.con-todo .tasklist >div >:nth-child(2) {
+.con-todo .tasklist .checkbox:hover {
+    border: 1px solid  lightgreen;
+    /* color: rgb(0, 244, 0);     */
+    font-weight: bolder;
+    scale: 1.2;
+    transition: 0.2s linear;
+}
+
+.con-todo .tasklist .input {
     flex-grow: 1;
+    font-size: 18px;
+    color: rgb(60, 58, 58)
 }
 
-.con-todo .tasklist >div >:nth-child(3) {
-    width: 20px;
-    height: 20px;
-    border: 1px solid;
+.con-todo .tasklist .dashed {
+    color: rgb(179, 179, 179);
+    text-decoration: dashed;
+}
+
+.con-todo .tasklist .deleteBtn {
     margin: auto;
+    scale: 1.6;
+    color: rgba(170, 19, 72, 0.367);
+}
+
+.con-todo .tasklist .deleteBtn:hover {
+    color: rgba(214, 24, 91, 0.991);
+    scale: 2;
+    transition: 0.2s linear;
 }
 
 .con-todo .countbar {
@@ -68,13 +106,28 @@
 .con-todo .countbar >* {
    display: flex;
    align-items: center;
+   font-size: 14px;
+   color: rgb(118, 114, 114);
 }
 
-.con-todo .countbar >:nth-child(2) >* {
+.con-todo .countbar .toBeDone {
+    width: 80px;
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.con-todo .countbar .showBtns >* {
     color: rgb(124, 122, 122);
     border: 1px solid rgba(246, 243, 207, 0);
+    margin-left: 8px;
 }
 
 .con-todo .countbar .selected {
-    border: 1px solid rgb(246, 243, 207);
+    border: 1px solid rgba(141, 143, 144, 0.2);
+}
+
+.con-todo .countbar .showBtns >*:hover {
+    border: 1px solid rgba(141, 143, 144, 0.6);
 }

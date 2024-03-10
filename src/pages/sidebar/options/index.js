@@ -3,7 +3,7 @@ import selections from './selection.json'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function Options() {
-    const selBtns = selections.map((x) => {
+    const selBtns = selections.filter(x => x.on).map((x) => {
        return <SingleOption opt={x} key={x.id} />
     })
 
