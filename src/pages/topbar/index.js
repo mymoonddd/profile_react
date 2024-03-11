@@ -1,10 +1,10 @@
 import './index.css'
-import leetcodeIcon from '../../assets/icons/leetcode.png'
+import { Link } from 'react-router-dom'
 
 export default function TopBar() {
     return <div className="topbar">
-      <a href=""> <LeetcodeText /></a>
-      <a href=""> <GithubText /></a>
+        <Link to={'https://github.com/mymoonddd'} children={<LeetcodeText/>}/>
+        <Link to={'https://leetcode.com/mymoonddd/'} children={<GithubText />} />
     </div>
 }
 
