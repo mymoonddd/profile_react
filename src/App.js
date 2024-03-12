@@ -1,17 +1,17 @@
 import './App.css';
 import './defaultStyle.css'
 import Main from './pages/main'
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <div className="block">
           <Main />
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

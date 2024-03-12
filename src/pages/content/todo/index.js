@@ -11,6 +11,7 @@ const SAVEKEY = 'todos'
 
 export default function ToDo() {
     const initialValues = useMemo(()=> (readFromLS(SAVEKEY) ?? {tasks: [], showNum: 0}), []) 
+    debugger
     const [{tasks, showNum}, dispatch] = useImmerReducer(tasksReducer, initialValues)
     const showTasks = tasks.filter(t => 
         showNum === 0 ? true : showNum === 1 ? !t.checked : t.checked
@@ -60,13 +61,13 @@ export default function ToDo() {
     }
 
     if (!tasks.length) {
-        return <div className='con-todo'>
+        return <div className='con-todo wrapper'>
              <TaskInput actionSet={actionSet}/>
         </div>
     }
 
     return (
-        <div className='con-todo'>
+        <div className='con-todo wrapper'>
             <TaskInput actionSet={actionSet} tasks={tasks}/>
             <TaskList tasks={showTasks} actionSet={actionSet}/>
             <CountBar tasks={tasks} showNum={showNum} actionSet={actionSet}/>

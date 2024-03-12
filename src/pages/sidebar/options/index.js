@@ -14,7 +14,8 @@ export default function Options() {
 
 function SingleOption({opt}) {
     const navigate = useNavigate()
-    const isActive = useLocation().pathname.slice(1) === opt.route
+    const pathName = useLocation().pathname.slice(1)
+    const isActive = pathName === opt.route || (!pathName.length && opt.route === 'todo')
     const activeBtn = <span className="circle" style={{opacity: +(isActive)}}></span>
     const text = <span className="text">{opt.desc} {isActive}</span>
     // const alert = <span className="alert">11</span>
