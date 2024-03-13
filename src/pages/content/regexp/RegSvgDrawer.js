@@ -24,7 +24,6 @@ class RegSvgDrawer {
             info.innerHTML=''
         } catch(e) {
             if (e instanceof TypeError) {
-                console.dir(e)
                 this.svg.innerHTML = ''
                 info.innerHTML='请输入正确的正则表达式~'
             } else {

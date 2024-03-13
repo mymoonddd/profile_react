@@ -11,7 +11,6 @@ const SAVEKEY = 'todos'
 
 export default function ToDo() {
     const initialValues = useMemo(()=> (readFromLS(SAVEKEY) ?? {tasks: [], showNum: 0}), []) 
-    debugger
     const [{tasks, showNum}, dispatch] = useImmerReducer(tasksReducer, initialValues)
     const showTasks = tasks.filter(t => 
         showNum === 0 ? true : showNum === 1 ? !t.checked : t.checked

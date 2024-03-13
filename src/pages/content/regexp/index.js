@@ -33,7 +33,7 @@ export default function RegExpRailway() {
 
     })
 
-    return <div className="con-regexp">
+    return <div className="con-regexp wrapper">
     <div className="title">
         <span id="title">Regexper</span>
         <span id='info'></span>

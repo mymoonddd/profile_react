@@ -19,7 +19,7 @@ export default function TaskList({tasks, actionSet}) {
     const tasksRow = tasks.map(t => {
         const id = t.id
         return (
-            <div>
+            <div key={id}>
                 <Checkbox task={t}/>
                 <ContentBox task={t}/>
                 <button className="cursor-p deleteBtn" onClick={e => deleteTask(e, id)}>x</button>

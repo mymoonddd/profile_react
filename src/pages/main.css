@@ -1,12 +1,44 @@
 .block {
-    background-color:white;
-    width: 1024px;
-    height: 730px;
-    display: flex;
-    flex-direction: row;
-    margin: 100px;
-  }
+  background-color:white;
+  height: 730px;
+  display: flex;
+  margin: 100px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 70px rgba(192, 190, 190, 0.581);
+}
 
 .block >div:last-child {
     flex-grow: 1;
 }
+
+.wrapper {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px lightgray;
+}
+
+@media (min-width: 600px) {
+  .block {
+    width: 1024px;
+    flex-direction: row;
+  }
+
+  .wrapper {
+    width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .block {
+    width: 600px;
+    flex-direction: column;
+    /* overflow-y: scroll; */
+  }
+
+  .wrapper {
+    width: 400px;
+  }
+}
+
+
+

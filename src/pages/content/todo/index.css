@@ -1,12 +1,4 @@
 
-.con-todo {
-    /* min-width: 200px; */
-    background-color: white;
-    width: 600px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px lightgray;
-}
-
 .con-todo .taskinput {
     display: flex;
     height: 70px;

@@ -1,7 +1,6 @@
 
 export function readFromLS(key) {
     let value = localStorage.getItem(key)
-    console.log(value)
     return value && JSON.parse(value)
 }
 

@@ -49,7 +49,6 @@ class RegExpParser {
         }
         while(this.char) {
             let part = this.parsePart()
-            console.log(part)
 
             if (part.type === 'Quantifier') {
                 part = this.dealwithQuantifier(node.elements, part)

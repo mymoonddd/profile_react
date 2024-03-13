@@ -11,7 +11,7 @@ export default function CountBar({tasks, actionSet, showNum}) {
     })
 
     const ShowBtns = ['全部','未完成','已完成'].map((x,idx) =>
-        <button onClick={() => showChange(idx)} className={`${showNum === idx ? 'selected' : ''} cursor-p`}>{x}</button>
+        <button key={x} onClick={() => showChange(idx)} className={`${showNum === idx ? 'selected' : ''} cursor-p`}>{x}</button>
     )
 
     return <div className="countbar">
