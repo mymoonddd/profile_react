@@ -1,5 +1,6 @@
 .block {
   background-color:white;
+  /* min-width: 200px; */
   height: 730px;
   display: flex;
   margin: 100px;
@@ -19,24 +20,33 @@
 
 @media (min-width: 600px) {
   .block {
-    width: 1024px;
+    width: 90vw;
     flex-direction: row;
   }
 
   .wrapper {
-    width: 600px;
+    width: 60vw;
   }
 }
-
 @media (max-width: 600px) {
   .block {
-    width: 600px;
+    width: 90vw;
     flex-direction: column;
-    /* overflow-y: scroll; */
   }
 
   .wrapper {
+    width: 60vw;
+  }
+}
+@media (max-width: 300px) {
+  .block {
     width: 400px;
+    scale: 0.6;
+    flex-direction: column;
+  }
+
+  .wrapper {
+    width: 300px;
   }
 }
 
